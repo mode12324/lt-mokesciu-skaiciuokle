@@ -234,6 +234,14 @@
           <strong id="total">—</strong>
         </div>
 
+<button id="copyResult" type="button"
+  style="width:100%;padding:14px;margin-top:20px;
+  background:#315eea;color:white;border:0;
+  border-radius:10px;font-size:16px;
+  font-weight:700;cursor:pointer">
+  Kopijuoti skaičiavimo rezultatus
+</button>
+
         <div class="notice" id="warning" role="status">
           <p>
             Tai preliminari skaičiuoklė. Galutinės sumos
@@ -466,6 +474,36 @@
       $(id).addEventListener("input", calculate);
       $(id).addEventListener("change", calculate);
     });
+
+$("copyResult").addEventListener("click", async () => {
+  const get = id => $(id).textContent.trim();
+
+  const text = [
+    "Individualios veiklos mokesčiai 2026",
+    "Pajamos: " + get("outIncome"),
+    "Leidžiami atskaitymai: " + get("outExpenses"),
+    "Mokestinis pelnas: " + get("profit"),
+    "GPM: " + get("gpm"),
+    "VSD: " + get("vsd"),
+    "PSD: " + get("psd"),
+    "Iš viso mokesčių: " + get("total"),
+    "Po mokesčių: " + get("net"),
+    "",
+    "Preliminarus rezultatas.",
+    window.location.href
+  ].join("\n");
+
+  try {
+    await navigator.clipboard.writeText(text);
+    const button = $("copyResult");
+    button.textContent = "Nukopijuota!";
+    setTimeout(() => {
+      button.textContent = "Kopijuoti skaičiavimo rezultatus";
+    }, 2000);
+  } catch {
+    alert("Nepavyko nukopijuoti. Patikrinkite naršyklės leidimus.");
+  }
+});
 
     calculate();
   </script>
