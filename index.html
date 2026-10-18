@@ -1,0 +1,424 @@
+
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nemokama 2026 m. individualios veiklos GPM, VSD ir PSD mokesčių skaičiuoklė Lietuvoje.">
+  <title>Mokesčių skaičiuoklė 2026 | Lietuva</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --white: #fff;
+      --ink: #17253d;
+      --muted: #65748b;
+      --blue: #315eea;
+      --green: #137c58;
+      --border: #dfe6f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      background: #12284b;
+      color: white;
+      padding: 22px 20px;
+    }
+    .wrap { max-width: 1040px; margin: auto; }
+    .brand { font-weight: 800; font-size: 20px; }
+    .hero { padding: 42px 0 24px; }
+    h1 {
+      font-size: clamp(29px, 5vw, 44px);
+      line-height: 1.15;
+      margin: 0 0 12px;
+    }
+    h2 { font-size: 22px; margin: 0 0 20px; }
+    p { color: var(--muted); }
+    .tag {
+      display: inline-block;
+      background: #e6edff;
+      color: #244cbd;
+      border-radius: 100px;
+      padding: 5px 12px;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+    main { padding: 0 20px 50px; }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 8px 30px #152c5010;
+    }
+    label {
+      display: block;
+      font-weight: 650;
+      margin: 17px 0 7px;
+    }
+    input, select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font: inherit;
+      color: var(--ink);
+      background: white;
+    }
+    input:focus, select:focus {
+      outline: 2px solid #9bb3ff;
+      border-color: var(--blue);
+    }
+    .hint { font-size: 13px; margin: 6px 0 0; }
+    .result {
+      background: #edf8f3;
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+    }
+    .result small { color: #426a5b; }
+    .big {
+      display: block;
+      font-size: clamp(30px, 5vw, 42px);
+      font-weight: 850;
+      color: var(--green);
+      margin-top: 4px;
+    }
+    .line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .line strong { white-space: nowrap; }
+    .total {
+      font-size: 18px;
+      font-weight: 800;
+      border-bottom: 0;
+    }
+    .notice {
+      background: #fff7e8;
+      color: #79541b;
+      border: 1px solid #f1d8a5;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    .notice p { color: inherit; margin: 0; }
+    .info { margin-top: 24px; }
+    a { color: #315eea; }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 26px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 760px) {
+      .layout { grid-template-columns: 1fr; }
+      .card { padding: 20px; }
+      .hero { padding-top: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">🇱🇹 Mokesčių skaičiuoklė</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="tag">2026 metų taisyklės</span>
+      <h1>Individualios veiklos mokesčių skaičiuoklė</h1>
+      <p>
+        Apskaičiuokite preliminarius GPM, VSD ir PSD mokesčius.
+        Nemokamai, be registracijos ir be duomenų siuntimo į serverį.
+      </p>
+    </section>
+
+    <div class="layout">
+      <section class="card">
+        <h2>Įveskite savo duomenis</h2>
+
+        <label for="income">Metinės pajamos (€)</label>
+        <input id="income" type="number" min="0" step="0.01"
+               value="20000" inputmode="decimal">
+
+        <label for="expenseType">Išlaidų apskaičiavimas</label>
+        <select id="expenseType">
+          <option value="30">30 % nuo pajamų</option>
+          <option value="actual">Faktinės išlaidos</option>
+        </select>
+        <p class="hint">
+          30 % būdas netinka tam tikrais atvejais,
+          pavyzdžiui, gaunant pajamų iš darbdavio.
+        </p>
+
+        <div id="actualExpensesBox" hidden>
+          <label for="expenses">Metinės išlaidos (€)</label>
+          <input id="expenses" type="number" min="0"
+                 step="0.01" value="0" inputmode="decimal">
+        </div>
+
+        <label for="pension">Papildomas pensijų kaupimas</label>
+        <select id="pension">
+          <option value="0">Nekaupiu papildomai</option>
+          <option value="3">Kaupiu papildomus 3 %</option>
+        </select>
+
+        <label for="insurance">PSD situacija</label>
+        <select id="insurance">
+          <option value="other">
+            Esu draustas kitur / netaikomas mėnesio minimumas
+          </option>
+          <option value="self">
+            Pats moku PSD visus 12 mėnesių
+          </option>
+        </select>
+        <p class="hint">
+          Pasirinkus antrą variantą, taikomas
+          2026 m. minimalus 80,48 € mėnesio PSD dydis.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Preliminarūs rezultatai</h2>
+
+        <div class="result">
+          <small>Lieka po išlaidų ir apskaičiuotų mokesčių</small>
+          <span class="big" id="net">—</span>
+        </div>
+
+        <div class="line">
+          <span>Metinės pajamos</span>
+          <strong id="outIncome">—</strong>
+        </div>
+        <div class="line">
+          <span>Leidžiamos išlaidos</span>
+          <strong id="outExpenses">—</strong>
+        </div>
+        <div class="line">
+          <span>Pelnas prieš mokesčius</span>
+          <strong id="profit">—</strong>
+        </div>
+        <div class="line">
+          <span>GPM</span>
+          <strong id="gpm">—</strong>
+        </div>
+        <div class="line">
+          <span>VSD</span>
+          <strong id="vsd">—</strong>
+        </div>
+        <div class="line">
+          <span>PSD</span>
+          <strong id="psd">—</strong>
+        </div>
+        <div class="line total">
+          <span>Iš viso mokesčių</span>
+          <strong id="total">—</strong>
+        </div>
+
+        <div class="notice" id="warning" role="status">
+          <p>
+            Tai preliminari skaičiuoklė. Galutinės sumos
+            priklauso nuo individualių aplinkybių.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <section class="card info">
+      <h2>Kaip skaičiuojami mokesčiai?</h2>
+      <p>
+        <strong>GPM:</strong> iki 20 000 € metinio apmokestinamojo
+        pelno taikomas 5 % efektyvus tarifas. Nuo 20 000 €
+        iki 42 500 € jis didėja iki 20 %.
+      </p>
+      <p>
+        <strong>VSD:</strong> 12,52 % nuo 90 % pelno,
+        papildomai 3 % dalyvaujant atitinkamame pensijų kaupime.
+      </p>
+      <p>
+        <strong>PSD:</strong> 6,98 % nuo 90 % pelno.
+        Kai asmuo pats privalo mokėti mėnesines PSD įmokas
+        visus metus, vertinamas ir metinis minimumas.
+      </p>
+      <p>
+        VSD ir PSD įmokų bazės riba šiame modelyje –
+        99 422,45 €. Mėnesinės PSD įmokos nėra pridedamos
+        antrą kartą prie metinio PSD.
+      </p>
+      <p>
+        <strong>Neįtraukta:</strong> PVM, kitos pajamos,
+        individualios lengvatos, pirmųjų metų VSD išimtys,
+        veikla ne visus metus ir specialūs draudimo atvejai.
+        Kai pelnas viršija 42 500 €, GPM priklauso ir
+        nuo kitų metinių pajamų, todėl automatiškai
+        nerodoma klaidinančiai tiksli GPM suma.
+      </p>
+      <h2>Oficialūs šaltiniai</h2>
+      <p>
+        <a href="https://www.vmi.lt/evmi/kokius-mokescius-reikia-moketi"
+           target="_blank" rel="noopener noreferrer">
+          VMI – individualios veiklos mokesčiai
+        </a>
+      </p>
+      <p>
+        <a href="https://www.vmi.lt/evmi/leid%C5%BEiami-/-neleid%C5%BEiami-atskaitymai1"
+           target="_blank" rel="noopener noreferrer">
+          VMI – leidžiami atskaitymai
+        </a>
+      </p>
+      <p>
+        <a href="https://sodra.lt/imoku-tarifai/imoku-tarifai-taikomi-savarankiskai-dirbantiems-asmenims"
+           target="_blank" rel="noopener noreferrer">
+          Sodra – 2026 m. įmokų tarifai
+        </a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Mokesčių skaičiuoklė.
+    Neoficialus informacinis įrankis, nesusijęs su VMI ar Sodra.
+    Tai nėra individuali mokesčių konsultacija.
+  </footer>
+
+  <script>
+    "use strict";
+
+    const MAX_SOCIAL_BASE = 99422.45;
+    const MONTHLY_PSD = 80.48;
+    const fmt = new Intl.NumberFormat("lt-LT", {
+      style: "currency",
+      currency: "EUR"
+    });
+
+    const $ = id => document.getElementById(id);
+
+    function money(value) {
+      return fmt.format(value);
+    }
+
+    function round(value) {
+      return Math.round((value + Number.EPSILON) * 100) / 100;
+    }
+
+    function calculate() {
+      const income = Number($("income").value);
+      const actual = Number($("expenses").value);
+      const type = $("expenseType").value;
+      const pension = Number($("pension").value);
+      const insurance = $("insurance").value;
+
+      $("actualExpensesBox").hidden = type !== "actual";
+
+      const valid =
+        Number.isFinite(income) && income >= 0 &&
+        Number.isFinite(actual) && actual >= 0 &&
+        (type !== "actual" || actual <= income);
+
+      const outputIds = [
+        "outIncome", "outExpenses", "profit",
+        "gpm", "vsd", "psd", "total", "net"
+      ];
+
+      if (!valid) {
+        outputIds.forEach(id => $(id).textContent = "—");
+        $("warning").textContent =
+          "Patikrinkite sumas: jos negali būti neigiamos, " +
+          "o faktinės išlaidos negali viršyti pajamų " +
+          "šiame supaprastintame modelyje.";
+        return;
+      }
+
+      const expenses = type === "30" ? income * 0.30 : actual;
+      const profit = Math.max(0, income - expenses);
+      const socialBase = Math.min(
+        profit * 0.90,
+        MAX_SOCIAL_BASE
+      );
+
+      const vsd = round(socialBase * (0.1252 + pension / 100));
+      const calculatedPsd = socialBase * 0.0698;
+
+      const psd = round(
+        insurance === "self"
+          ? Math.max(calculatedPsd, MONTHLY_PSD * 12)
+          : calculatedPsd
+      );
+
+      let gpm = null;
+
+      if (profit <= 20000) {
+        gpm = round(profit * 0.05);
+      } else if (profit <= 42500) {
+        const creditRate =
+          0.15 - (2 / 300000) * (profit - 20000);
+        gpm = round(
+          profit * 0.20 - profit * creditRate
+        );
+      }
+
+      $("outIncome").textContent = money(income);
+      $("outExpenses").textContent = money(expenses);
+      $("profit").textContent = money(profit);
+      $("vsd").textContent = money(vsd);
+      $("psd").textContent = money(psd);
+
+      if (gpm === null) {
+        $("gpm").textContent = "Reikia vertinimo";
+        $("total").textContent = "—";
+        $("net").textContent = "—";
+        $("warning").textContent =
+          "Pelnas viršija 42 500 €. GPM gali priklausyti " +
+          "nuo visų metinių pajamų ir progresinių tarifų. " +
+          "Ši skaičiuoklė tokio atvejo pilnai nevertina. " +
+          "VSD ir PSD sumos yra preliminarios.";
+        return;
+      }
+
+      const total = round(gpm + vsd + psd);
+      const net = round(profit - total);
+
+      $("gpm").textContent = money(gpm);
+      $("total").textContent = money(total);
+      $("net").textContent = money(net);
+
+      $("warning").textContent =
+        "Preliminarus 2026 m. apskaičiavimas. " +
+        "Jei taikomos VSD išimtys, PSD lengvatos, " +
+        "gaunate kitų pajamų ar dirbote ne visus metus, " +
+        "tikroji mokėtina suma gali skirtis. " +
+        "Anksčiau sumokėtos PSD įmokos nėra papildomi " +
+        "mokesčiai – jos įskaitomos į metinę prievolę.";
+    }
+
+    [
+      "income", "expenses", "expenseType",
+      "pension", "insurance"
+    ].forEach(id => {
+      $(id).addEventListener("input", calculate);
+      $(id).addEventListener("change", calculate);
+    });
+
+    calculate();
+  </script>
+</body>
+</html>
